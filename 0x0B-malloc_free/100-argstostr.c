@@ -1,46 +1,48 @@
 #include "main.h"
-
+#include <stdlib.h>
 /**
- * argstostr - concatenates all the arguments of your program.
- * @ac: Arguments Count.
- * @av: Arguments Vector.
- *
- * Return: a pointer to a new string, or NULL if it fails.
-*/
+ * argstostr - print args
+ * @ac: grid width
+ * @av: grid height
+ * Return: args one line at a time
+ */
+
 char *argstostr(int ac, char **av)
 {
-	int i, j, len = 0;
-	char *concatenated;
+	char *str;
+	int count = 0, a = 0, b = 0, c = 0;
 
-	if (ac <= 0 || av == NULL)
+	if (ac == 0 || av == NULL)
 		return (NULL);
 
-	for (i = 0; i < ac; i++)
+	while (a < ac)
 	{
-		j = 0;
-		while (av[i][j])
+		b = 0;
+		while (av[a][b] != '\0')
 		{
-			len++;
-			j++;
+			count++;
+			b++;
 		}
-		len++;
+		a++;
 	}
 
-	concatenated = (char *)malloc(sizeof(char) * (len + 1));
-	if (concatenated == NULL)
+	count = count + ac + 1;
+	str = malloc(sizeof(char) * count);
+
+	if (str == NULL)
+	{
 		return (NULL);
-
-	len = 0;
-	for (i = 0; i < ac; i++)
-	{
-		for (j = 0; av[i][j]; j++)
-		{
-			concatenated[len] = av[i][j];
-			len++;
-		}
-		concatenated[len] = '\n';
-		len++;
 	}
-	concatenated[len] = '\0';
-	return (concatenated);
+
+	for (a = 0; a < ac; a++)
+	{
+		for (b = 0; av[a][b] != '\0'; b++)
+		{
+			str[c] = av[a][b];
+			c++;
+		}
+		str[c] = '\n';
+		c++;
+	}
+	return (str);
 }
